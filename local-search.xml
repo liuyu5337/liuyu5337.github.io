@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>markdown输入拼音声调</title>
+    <link href="/2024/06/27/markdown%E8%BE%93%E5%85%A5%E6%8B%BC%E9%9F%B3%E5%A3%B0%E8%B0%83/"/>
+    <url>/2024/06/27/markdown%E8%BE%93%E5%85%A5%E6%8B%BC%E9%9F%B3%E5%A3%B0%E8%B0%83/</url>
+    
+    <content type="html"><![CDATA[<p>使用markdown写作，有时会遇到对中文注音的情况。通过查询资料，在此记录下来。</p><table><thead><tr class="header"><th>声调</th><th>格式</th><th>效果</th></tr></thead><tbody><tr class="odd"><td>一声（阴平）</td><td>&amp;<strong>a</strong>macr;</td><td>ā</td></tr><tr class="even"><td>二声（阳平）</td><td>&amp;<strong>a</strong>acute;</td><td>á</td></tr><tr class="odd"><td>三声（上声）上 (shǎng)声</td><td>&amp;<strong>e</strong>caron;ǎ不能使用这个方式，可以使用搜狗拼音输入</td><td>ě</td></tr><tr class="even"><td>四声（去声）</td><td>&amp;<strong>a</strong>grave;</td><td>à</td></tr><tr class="odd"><td>u音</td><td>&amp;<strong>u</strong>uml;</td><td>ü</td></tr></tbody></table><p>用法： 替换<code>&amp;</code>后的第一个字母即可。 注：有的字母替换后显示会不正常，自己尝试下即可。</p><p><ahref="https://dev.w3.org/html5/html-author/charref">特殊字符网址</a></p><p><ahref="https://www.w3.org/TR/WD-math-970710/fnewtable17.html">特殊字符网址2</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>工具技巧</category>
+      
+      <category>奇技淫巧</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>咏荆轲</title>
     <link href="/2024/06/24/%E5%92%8F%E8%8D%86%E8%BD%B2/"/>
     <url>/2024/06/24/%E5%92%8F%E8%8D%86%E8%BD%B2/</url>
