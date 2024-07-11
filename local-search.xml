@@ -4,6 +4,40 @@
   
   
   <entry>
+    <title>hexo搭建blog教程</title>
+    <link href="/2024/07/11/hexo%E6%90%AD%E5%BB%BAblog%E6%95%99%E7%A8%8B-1/"/>
+    <url>/2024/07/11/hexo%E6%90%AD%E5%BB%BAblog%E6%95%99%E7%A8%8B-1/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>hexo搭建blog教程</title>
+    <link href="/2024/07/11/hexo%E6%90%AD%E5%BB%BAblog%E6%95%99%E7%A8%8B/"/>
+    <url>/2024/07/11/hexo%E6%90%AD%E5%BB%BAblog%E6%95%99%E7%A8%8B/</url>
+    
+    <content type="html"><![CDATA[<h3 id="hexo">Hexo</h3><hr /><p>Hexo 是一个快速、简洁且高效的博客框架。 Hexo 使用 <ahref="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p><h3 id="hexo文档">Hexo文档</h3><hr /><p><a href="https://hexo.io/zh-cn/docs/">Hexo文档</a></p><p>Hexo文档基本解决大部分写作的问题。</p><h3 id="在github上使用hexo建立blog">在github上使用hexo建立blog</h3><hr /><p>使用Hexo在github上建立blog，请参考<ahref="https://blog.csdn.net/wufengfeng130/article/details/131251961">这里</a></p><blockquote><p>注意：</p><p>如果使用命令行在上传github提示 hexo Support for passwordauthentication was removed on August 13, 2021. Please use a personalaccess token instead.</p><p>请使用 SSHkey在github仓库中部署文件。具体的ssh key 请在github-&gt;settings-&gt;SSH and GPG keys中设置。</p><p>关于ssh key的生成方法，参考<ahref="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=mac">github文档</a></p></blockquote><h3 id="hexo设置多级目录">Hexo设置多级目录</h3><hr /><p>如果想把文章放在多级目录下，</p><p>请在文件头部添加：</p><blockquote><p>categories: [教程, hexo]</p></blockquote><p>[]内的多级目录使用逗号（英文逗号）分割，前面的是父目录，后面的是子目录。</p><h3 id="hexo写作">Hexo写作</h3><p>在命令行执行如下命令，在可以生成一个要完成的写作文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo new post &quot;hexo搭建blog教程&quot;<br></code></pre></td></tr></table></figure><p>生成的文件路径是 本地blog目录下的 source/_posts下面,在该目录下会有一个对应的"hexo搭建blog教程.md"文件，使用文本编辑器进行写作即可。</p><h3 id="hexo发布到github">Hexo发布到github</h3><p>在命令行执行如下命令，即可将文章发布到网络</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo d -g<br></code></pre></td></tr></table></figure><p>hexo d -g = hero deploy generate.</p><p>具体的hexo命令 请参考<ahref="https://hexo.io/zh-cn/docs/commands">这里</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>教程</category>
+      
+      <category>hexo</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>markdown输入拼音声调</title>
     <link href="/2024/06/27/markdown%E8%BE%93%E5%85%A5%E6%8B%BC%E9%9F%B3%E5%A3%B0%E8%B0%83/"/>
     <url>/2024/06/27/markdown%E8%BE%93%E5%85%A5%E6%8B%BC%E9%9F%B3%E5%A3%B0%E8%B0%83/</url>
