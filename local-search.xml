@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>hexo文章中插入图片</title>
+    <link href="/2024/07/14/hexo%E6%96%87%E7%AB%A0%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/"/>
+    <url>/2024/07/14/hexo%E6%96%87%E7%AB%A0%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</url>
+    
+    <content type="html"><![CDATA[<h3 id="markdown添加图片">Markdown添加图片</h3><hr /><p>Markdown 添加图片的格式是:</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs markdown">![<span class="hljs-string">图片说明</span>](<span class="hljs-link">图片路径 http网络路径或者本地路径</span>)<br>![<span class="hljs-string">这是一张图片</span>](<span class="hljs-link">https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/20090529_Great_Wall_8185.jpg/2560px-20090529_Great_Wall_8185.jpg</span>)<br></code></pre></td></tr></table></figure><p>插入的图片效果如下图：</p><figure><imgsrc="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/20090529_Great_Wall_8185.jpg/2560px-20090529_Great_Wall_8185.jpg"alt="这是一张图片" /><figcaption aria-hidden="true">这是一张图片</figcaption></figure><h3 id="hexo文章中的图片">Hexo文章中的图片</h3><hr /><p>在使用Hexo写文章时，有的图片在本地，在本地的markdown文件中可以查看，但是发布到网络后，就因为路径问题无法显示图片。</p><p>解决办法：</p><h5 id="修改配置文件">修改配置文件</h5><p>打开_config.yml配置文件，找到post_asset_folder配置项</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 修改前</span><br><span class="hljs-attr">post_asset_folder:</span> <span class="hljs-literal">false</span><br><span class="hljs-comment"># 修改后</span><br><span class="hljs-attr">post_asset_folder:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure><p>修改post_asset_folder为true后，在使用新建文档时，会在文档同一目录下生成一个同名的文件夹，可以在该文件夹中存放图片，如下图所示。</p><p><img src="image_demo.png" /></p><p>如果是使用Typora编辑文档，为了可以在文档中显示图片，需要设置图片的目录。</p><h5 id="设置typora的图片根目录">设置Typora的图片根目录</h5><blockquote><p>格式（O） -&gt; 图像 -&gt; 设置图片根目录 -&gt;选择文章同名文件夹（即放置图片的文件夹）</p></blockquote><h3 id="总结">总结</h3><hr /><p>经过以上设置后，就可以实现既可以在本地文档中显示图片，发布到网络后也可以现实图片。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>教程</category>
+      
+      <category>hexo</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>搭建pytorch环境说明</title>
     <link href="/2024/07/14/%E6%90%AD%E5%BB%BApytorch%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E/"/>
     <url>/2024/07/14/%E6%90%AD%E5%BB%BApytorch%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E/</url>
