@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://liuyu5337.github.io/2024/07/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/cnn_calc.png">
 <meta property="og:image" content="http://liuyu5337.github.io/2024/07/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/cnn_bat.png">
 <meta property="article:published_time" content="2024-07-26T01:45:48.000Z">
-<meta property="article:modified_time" content="2024-07-28T09:59:35.362Z">
+<meta property="article:modified_time" content="2024-07-29T01:36:11.966Z">
 <meta property="article:author" content="zhq">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://liuyu5337.github.io/2024/07/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/2LP.png">
@@ -527,11 +527,13 @@ rule）。</p>
 <p>为了找到最优参数，我们将参数的梯度（导数）作为了线索。使用参数的梯度，沿梯度方向更新参数，并重复这个步骤多次，从而逐渐靠近最优参数，这个过程称为<strong>随机梯度下降法</strong>（stochastic
 gradient descent），简称<strong>SGD</strong>。SGD的数学表达如下所示：
 <span class="math display">\[
-\bold W\leftarrow \bold W-\eta \frac{\partial L}{\partial \bold W}
-\]</span> 这里把需要更新的权重参数记为<span class="math inline">\(\bold
-W\)</span>，把损失函数关于<span class="math inline">\(\bold
-W\)</span>的梯度记为<span class="math inline">\(\frac{\partial
-L}{\partial \bold W}\)</span>, <span
+\boldsymbol W\leftarrow \boldsymbol W-\eta \frac{\partial L}{\partial
+\boldsymbol W}
+\]</span> 这里把需要更新的权重参数记为<span
+class="math inline">\(\boldsymbol W\)</span>，把损失函数关于<span
+class="math inline">\(\boldsymbol W\)</span>的梯度记为<span
+class="math inline">\(\frac{\partial L}{\partial \boldsymbol
+W}\)</span>, <span
 class="math inline">\(\eta\)</span>表示学习率，实际上会取0.01或0.001这些事先决定好的值。式子中的←表示用右边的值更新左边的值。</p>
 <h6 id="sgd的缺点">SGD的缺点：</h6>
 <p>如果函数的形状非均向（anisotropic），比如呈延伸状，搜索的路径就会非常低效。SGD低效的根本原因是，梯度的方向并没有指向最小值的方向。</p>
