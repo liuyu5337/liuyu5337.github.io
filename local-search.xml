@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>pytorch的model.train()与model.eval()</title>
+    <link href="/2024/08/07/pytorch%E7%9A%84model-train-%E4%B8%8Emodel-eval/"/>
+    <url>/2024/08/07/pytorch%E7%9A%84model-train-%E4%B8%8Emodel-eval/</url>
+    
+    <content type="html"><![CDATA[<p>在pytorch的深度学习代码中，经常遇到model.train() 和 model.eval()，这两句代码有什么区别，究竟有什么用呢？</p><p>先看<ahref="https://pytorch.org/docs/stable/generated/torch.nn.Module.html">文档</a>。</p><figure><img src="/train.png" alt="train" /><figcaption aria-hidden="true">train</figcaption></figure><p>根据官方文档的说明，train()就是把module设置为训练(training)模式。</p><figure><img src="/eval.png" alt="eval" /><figcaption aria-hidden="true">eval</figcaption></figure><p>根据官方文档的说明，eval()就是把module设置为评价(evaluation)模式。</p><p>这两个方法都会对模型有一定影响，比如对BN和dropout的影响。那具体在使用中是怎么影响的呢？</p><h4 id="train">train</h4><p>如果模型中有BN层（Batch Normalization）和 Dropout ，需要在 训练时添加 model.train()。</p><p>model.train() 是保证 BN 层能够用到 每一批数据 的均值和方差。对于Dropout，model.train() 是 随机取一部分 网络连接来训练更新参数。</p><p>训练过程中会在程序上方添加一句model.train()，作用是 <strong>启用batch normalization (BN)和 dropout</strong> 。</p><h4 id="eval">eval</h4><p>如果模型中有 BN 层（Batch Normalization）和 Dropout，在 测试时 添加model.eval()。</p><p>model.eval() 是保证 BN 层能够用 全部训练数据的均值和方差，即测试过程中要保证 BN 层的均值和方差不变。对于Dropout，model.eval() 是利用到了 所有网络连接，即不进行随机舍弃神经元。</p><p>model.eval()的作用是 <strong>不启用 Batch Normalization 和Dropout</strong>。</p><h4 id="为什么测试要用eval">为什么测试要用eval</h4><p>训练完 train 样本后，生成的模型 model 要用来测试样本了。在model(test)之前，需要加上model.eval()，否则的话，有输入数据，即使不训练，它也会改变权值。这是model 中含有 BN 层和 Dropout 所带来的的性质。</p><p>eval() 时，pytorch 会自动把 BN 和 DropOut固定住，不会取平均，而是用训练好的值。 不然的话，一旦 test 的 batch_size过小，很容易就会被 BN 层导致生成图片颜色失真极大。 eval()在非训练的时候是需要加的，没有这句代码，一些网络层的值会发生变动，不会固定，你神经网络每一次生成的结果也是不固定的，生成质量可能好也可能不好。</p><p>也就是说，测试过程中使用model.eval()，这时神经网络会 沿用 batchnormalization 的值，而并 不使用 dropout。</p><p>在PyTorch中进行validation/test时，会使用model.eval()切换到测试模式，在该模式下：</p><p>1.主要用于通知dropout层和BN层在training和validation/test模式间切换：</p><p>在train模式下，dropout网络层会按照设定的参数p，设置保留激活单元的概率（保留概率=p)。BN层会继续计算数据的mean和var等参数并更新。在eval模式下，dropout层会让所有的激活单元都通过，而BN层会停止计算和更新mean和var，直接使用在训练阶段已经学出的mean和var值。</p><p>2.eval模式不会影响各层的gradient计算行为，即gradient计算和存储与training模式一样，只是不进行反向传播（backprobagation)。</p><p>而<strong>withtorch.no_grad()</strong>则主要是用于停止autograd模块的工作，以起到加速和节省显存的作用。它的作用是将该with语句包裹起来的部分停止梯度的更新，从而节省了GPU算力和显存，但是并不会影响dropout和BN层的行为。</p><p>如果不在意显存大小和计算时间的话，仅仅使用model.eval()已足够得到正确的validation/test的结果；而withtorch.no_grad()则是更进一步加速和节省gpu空间（因为不用计算和存储梯度），从而可以更快计算，也可以跑更大的batch来测试。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机技术</category>
+      
+      <category>深度学习</category>
+      
+      <category>pytorch</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>深度学习入门</title>
     <link href="/2024/07/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"/>
     <url>/2024/07/26/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</url>
