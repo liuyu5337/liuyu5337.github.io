@@ -4,6 +4,53 @@
   
   
   <entry>
+    <title>k8s初体验</title>
+    <link href="/2024/10/06/k8s%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
+    <url>/2024/10/06/k8s%E5%88%9D%E4%BD%93%E9%AA%8C/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>zshrc command not found</title>
+    <link href="/2024/10/06/zshrc-command-not-found/"/>
+    <url>/2024/10/06/zshrc-command-not-found/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ubuntu 设置代理</title>
+    <link href="/2024/10/06/ubuntu-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/"/>
+    <url>/2024/10/06/ubuntu-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h3 id="背景介绍">背景介绍</h3><p>宿主机是Mac OS ，使用parallels Desktop 安装了ubuntu desktop24.04.01。<img src="1.png" alt="网络设置" /></p><p>网络设置如图所示。宿主机Mac有VPN，在Ubuntu上也想使用宿主机的VPN代理，该如何设置呢。</p><h3 id="设置代理">设置代理</h3><p>设置代理有多种方式</p><ol type="1"><li><p>临时设置</p><p>通过命令行设置</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export HTTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export HTTPS_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export FTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export NO_PROXY=localhost,127.0.0.1,::1<br></code></pre></td></tr></table></figure><p>示例如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export HTTP_PROXY=http://192.xxx.xxx.xxx:1234<br>export HTTPS_PROXY=http://192.xxx.xxx.xxx:1234<br>export FTP_PROXY=http://192.xxx.xxx.xxx:1234<br>export NO_PROXY=localhost,127.0.0.1,::1<br></code></pre></td></tr></table></figure><p>注意 HTTPS_PROXY，也需要设置为和HTTP_PROXY一样。因为宿主机Mac没有https.</p><p>同样 NO_PROXY除了 localhost127.0.0.1,::1以外，如果Ubuntu还有其他本地的IP不需要走代理，比如如果还要在Ubuntu上装了k8s后，k8s本地的IP也需要加上，不能走代理。</p></li><li><p>永久设置</p><p>编辑 ~/.bashrc</p><p>在文件里添加 内容如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export HTTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export HTTPS_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export FTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export NO_PROXY=localhost,127.0.0.1,::1<br></code></pre></td></tr></table></figure><p>其实就是把第一种方式的内容放在了 .bashrc里。</p><p>添加之后，记得执行 source ~/.bashrc</p></li><li><p>为 所有用户都能使用代理</p><p>编辑/etc/environment</p><p>在文件里添加</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export HTTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export HTTPS_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export FTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export NO_PROXY=localhost,127.0.0.1,::1<br></code></pre></td></tr></table></figure></li><li><p>为apt设置代理</p><p>新建或者编辑（如果文件存在）/etc/apt/apt.conf在文件里添加如下内容</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export HTTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export HTTPS_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export FTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export NO_PROXY=localhost,127.0.0.1,::1<br></code></pre></td></tr></table></figure></li><li><p>为wget设置代理</p><p>新建或者编辑（如果文件存在）~/.wgetrc ,在文件里添加如下内容</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export HTTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export HTTPS_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export FTP_PROXY=[proxy-web-or-IP-address]:[port-number]<br>export NO_PROXY=localhost,127.0.0.1,::1<br></code></pre></td></tr></table></figure></li><li><p>为docker设置代理</p><p>创建（如果目录不存在） docker.service.d目录</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir /etc/systemd/system/docker.service.d<br></code></pre></td></tr></table></figure></li></ol><p>​ 创建或者编辑 http-proxy.conf 代理文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">[Service]<br>Environment=&quot;HTTP_PROXY=https://web-proxy.corp.xxxxxx.com:8080/&quot;<br>Environment=&quot;HTTPS_PROXY=http://web-proxy.corp.xxxxxx.com:8080/&quot;<br>Environment=&quot;NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com&quot;<br>Environment=&quot;ALL_PROXY=socks5://web-proxy.corp.xxxxxx.com:8080&quot;<br></code></pre></td></tr></table></figure><p>配置后之后，执行如下命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl daemon-reload<br><br>systemctl restart docker<br></code></pre></td></tr></table></figure><p>查看<ahref="https://docs.docker.com/engine/daemon/proxy/#httphttps-proxy">官方文档</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机技术</category>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>matplotlib中的中文字体设置</title>
     <link href="/2024/08/15/matplotlib%E4%B8%AD%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/"/>
     <url>/2024/08/15/matplotlib%E4%B8%AD%E7%9A%84%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</url>
