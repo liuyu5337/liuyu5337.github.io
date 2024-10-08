@@ -21,8 +21,16 @@
     <link href="/2024/10/06/zshrc-command-not-found/"/>
     <url>/2024/10/06/zshrc-command-not-found/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h3 id="起因">起因</h3><p>安装了itern后，shell出现了有点问题， 安装后的node命令无法执行，提示 “zshrc command not found”</p><h3 id="解决">解决</h3><p>因为明确知道已经安装了node.js，出现这个问题，应该是由于itern的shell的有问题。</p><p>查看 ~/.nvm/ 目录，有node.js安装的文件。</p><p>执行 如下命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">source ~/.nvm/nvm.sh<br></code></pre></td></tr></table></figure><p>再执行 nvm npm 等命令就发现已经可以了。</p>]]></content>
     
+    
+    <categories>
+      
+      <category>工具技巧</category>
+      
+      <category>shell</category>
+      
+    </categories>
     
     
   </entry>
