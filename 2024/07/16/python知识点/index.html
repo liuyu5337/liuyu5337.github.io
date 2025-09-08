@@ -469,65 +469,65 @@ Python 的编程规范，具体规则也是跟属性一样的。</p>
 <h5 id="类专有的方法">类专有的方法</h5>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>方法</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>__init__</code></td>
 <td>构造函数，在生成对象时调用</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>__del__</code></td>
 <td>析构函数，释放对象时使用</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>__repr__</code></td>
 <td>打印，转换</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>__setitem__</code></td>
 <td>按照索引赋值</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>__getitem__</code></td>
 <td>按照索引获取值</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>__len__</code></td>
 <td>获得长度</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>__cmp__</code></td>
 <td>比较运算</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>__call__</code></td>
 <td>函数调用</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>__add__</code></td>
 <td>加运算</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>__sub__</code></td>
 <td>减运算</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>__mul__</code></td>
 <td>乘运算</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>__div__</code></td>
 <td>除运算</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>__mod__</code></td>
 <td>求余运算</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>__pow__</code></td>
 <td>乘方</td>
 </tr>
@@ -626,55 +626,55 @@ Python
 <table>
 
 <thead>
-<tr class="header">
+<tr>
 <th>装饰器</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><span class="citation" data-cites="lru_cache">@lru_cache</span></td>
 <td>使用缓存技巧加速</td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="citation"
 data-cites="total_ordering">@total_ordering</span></td>
 <td>根据定义的方法为 Python 类生成缺少的比较方法。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="citation"
 data-cites="contextmanager">@contextmanager</span></td>
 <td>Python 有一个上下文管理器机制来帮助你正确地管理资源。</td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="citation" data-cites="property">@property</span></td>
 <td>使用 <span class="citation" data-cites="property">@property</span>
 装饰器可以设置每个类属性的getter和setter方法。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="citation"
 data-cites="cached_property">@cached_property</span></td>
 <td>Python 3.8 为 functool 模块引入了一个新的强大装饰器——<span
 class="citation"
 data-cites="cached_property">@cached_property</span>。它可以将一个类的方法转换为一个属性，该属性的值计算一次，然后在实例的生命周期内作为普通属性缓存。</td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="citation"
 data-cites="classmethod">@classmethod</span></td>
 <td>要定义一个类方法，我们需要使用@classmethod 装饰器。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="citation"
 data-cites="staticmethod">@staticmethod</span></td>
 <td>要定义一个静态方法，我们只需要使用@staticmethod 装饰器</td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="citation" data-cites="dataclass">@dataclass</span></td>
 <td><span class="citation"
 data-cites="dataclass装饰器">@dataclass装饰器</span>（Python
 3.7引入）可以自动为一个类生成几个特殊的方法，如<strong>init</strong>、<strong>repr</strong>、<strong>eq</strong>、<strong>lt</strong>等。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="citation"
 data-cites="atexit.register">@atexit.register</span></td>
 <td>来自 atexit 模块的 <span class="citation"
