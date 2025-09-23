@@ -16,25 +16,35 @@
   <meta name="author" content="zhq">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Mac 环境默认会有python：  但是在开发环境中，有时候会用到不同版本的python，为了方便开发和管理，常用的python版本管理有 pyenv, virtualenv&#x2F;virtualenvwrapper。 本文介绍使用virtualenv&#x2F;virtualenvwrapper 构建多版本的python管理。 一、条件准备 Mac 或者linux&#x2F;Unix 环境默认会带有python版本，如">
+    <meta name="description" content="从Ubuntu 18.04 LTS开始，安装程序在分区时默认提供“使用LVM”的选项，但并不是默认选中。用户需要手动选择使用LVM。在Ubuntu 20.04 LTS及更高版本中，安装程序提供了更高级的“高级分区”选项，其中可以明确设置分区大小和LVM配置。  Ubuntu LVM使用时间线  Ubuntu 18.04 LTS (2018) → 开始更广泛使用 LVM Ubuntu 20.04 L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac环境python环境设置">
-<meta property="og:url" content="http://liuyu5337.github.io/2025/09/17/Mac%E7%8E%AF%E5%A2%83python%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE/index.html">
+<meta property="og:title" content="Ubuntu LVM（逻辑卷管理）使用">
+<meta property="og:url" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="零壹网络">
-<meta property="og:description" content="Mac 环境默认会有python：  但是在开发环境中，有时候会用到不同版本的python，为了方便开发和管理，常用的python版本管理有 pyenv, virtualenv&#x2F;virtualenvwrapper。 本文介绍使用virtualenv&#x2F;virtualenvwrapper 构建多版本的python管理。 一、条件准备 Mac 或者linux&#x2F;Unix 环境默认会带有python版本，如">
+<meta property="og:description" content="从Ubuntu 18.04 LTS开始，安装程序在分区时默认提供“使用LVM”的选项，但并不是默认选中。用户需要手动选择使用LVM。在Ubuntu 20.04 LTS及更高版本中，安装程序提供了更高级的“高级分区”选项，其中可以明确设置分区大小和LVM配置。  Ubuntu LVM使用时间线  Ubuntu 18.04 LTS (2018) → 开始更广泛使用 LVM Ubuntu 20.04 L">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://liuyu5337.github.io/2025/09/17/Mac%E7%8E%AF%E5%A2%83python%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE/python.png">
-<meta property="article:published_time" content="2025-09-17T09:10:27.000Z">
-<meta property="article:modified_time" content="2025-09-18T01:50:25.328Z">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/lvm.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/disk-1.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/disk-2.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/pvscan.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/pvdisplay.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/vgdisplay.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/lvdisplay.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/lsblk.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/blkid.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/lvdisplay-1.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/df-hT.png">
+<meta property="article:published_time" content="2025-09-23T06:02:10.000Z">
+<meta property="article:modified_time" content="2025-09-23T08:40:30.968Z">
 <meta property="article:author" content="zhq">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://liuyu5337.github.io/2025/09/17/Mac%E7%8E%AF%E5%A2%83python%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE/python.png">
+<meta name="twitter:image" content="http://liuyu5337.github.io/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/lvm.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Mac环境python环境设置 - 零壹网络</title>
+  <title>Ubuntu LVM（逻辑卷管理）使用 - 零壹网络</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Mac环境python环境设置"></span>
+            <span id="subtitle" data-typed-text="Ubuntu LVM（逻辑卷管理）使用"></span>
           
         </div>
 
@@ -215,8 +225,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-17 17:10" pubdate>
-          2025年9月17日 下午
+        <time datetime="2025-09-23 14:02" pubdate>
+          2025年9月23日 下午
         </time>
       </span>
     
@@ -227,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          1.1k 字
         
       </span>
     
@@ -238,7 +248,7 @@
         
         
         
-          9 分钟
+          10 分钟
         
       </span>
     
@@ -275,56 +285,109 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Mac环境python环境设置</h1>
+            <h1 id="seo-header">Ubuntu LVM（逻辑卷管理）使用</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Mac 环境默认会有python：</p>
-<p><img src="python.png" srcset="/img/loading.gif" lazyload /></p>
-<p>但是在开发环境中，有时候会用到不同版本的python，为了方便开发和管理，常用的python版本管理有
-pyenv, virtualenv/virtualenvwrapper。</p>
-<p>本文介绍使用virtualenv/virtualenvwrapper 构建多版本的python管理。</p>
-<h4 id="一条件准备">一、条件准备</h4>
-<p>Mac 或者linux/Unix
-环境默认会带有python版本，如果较老的系统默认的python版本会比较低；另外，有时候想保留纯净的mac
-python版本，以上两种情况就需要另外安装新的python版本。</p>
-<p>为了避免和系统中已有的版本区分，安装新版本的python
-建议安装在指定目录下，通过linux如ubuntu 等不支持通过系统命令(如apt
-install) 安装到指定目录，所以，需要通过源码安装python.</p>
+                <p>从Ubuntu 18.04
+LTS开始，安装程序在分区时默认提供“使用LVM”的选项，但并不是默认选中。用户需要手动选择使用LVM。在Ubuntu
+20.04
+LTS及更高版本中，安装程序提供了更高级的“高级分区”选项，其中可以明确设置分区大小和LVM配置。</p>
 <ol type="1">
-<li><p>下载源码 如到
-https://www.python.org/downloads/release/python-3137/ 下载
-3.13.7的源码包。</p></li>
-<li><p>解压文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">如果是.tar.xz包<br>tar -xvf Python-3.13.7.tar.xz<br>如果是 .tgz包<br>tar -zxvf Python-3.13.7.tgz<br><br>注：.tgz (或 .tar.gz) 和 .tar.xz 的主要区别在于它们使用不同的压缩算法，其中 .tar.xz 使用更先进、压缩率更高的 xz 算法，而 .tgz 使用传统的 gzip 算法。这意味着 .tar.xz 文件通常比同等文件压缩的 .tgz 文件体积更小，尤其是在存储空间有限或需要传输大量数据时更有优势。然而，xz 压缩需要更长的时间和更多的计算资源，速度不如 gzip。<br></code></pre></td></tr></table></figure></li>
-<li><p>编译，指定安装目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell">./configure --prefix=/Users/yourname/my_python --enable-optimizations<br>如<br>./configure --prefix=/Users/xxxx/dev_env/python/python_env/3.13.7 --enable-optimizations #xxxx是你的登录用户名称<br>--prefix：指定安装根目录（核心参数）<br>--enable-optimizations：启用编译优化（可选，会慢一些但运行更快）<br><br>make -j4  # 多线程编译（4 核心，根据 CPU 调整）<br>make install<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">安装成功后，查看版本</span><br>/Users/xxxx/dev_env/python/python_env/3.13.7/bin/python3 --version<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看安装路径</span><br>ls /Users/xxxx/dev_env/python/python_env/3.13.7/bin/  # 包含 python3、pip3 等<br></code></pre></td></tr></table></figure></li>
-<li><p>把安装的 python路径写入到 系统环境变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">如果是用zsh,可以在~/.zshrc写入环境变量，不用zsh,默认情况下，mac 写入 ~/.bash_profile, ubuntu或者其他linux可以写入 ~/.bashrc</span><br><br>export PATH=$HOME/dev_env/python/python_env/3.13.7/bin:$PATH<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">然后 执行 <span class="hljs-built_in">source</span> ~/.对应的配置配置文件</span><br>source ~/.zshrc  ## 或者 source ~/.bash_profile<br><br></code></pre></td></tr></table></figure></li>
-<li><p>安装virtualenv 和
-virtualwrapper。为了保持系统的"纯净"，或者说便于管理，这里把virtualenv或者virtualenvwrapper安装在指定目录。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">把 virtualenv virtualenvwrapper 安装到<span class="hljs-variable">$HOME</span>/dev_env/python/python_env/virtualenv_bin</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">HOME/dev_env/python/python_env/3.13.7/bin/python3 -m pip install --prefix=<span class="hljs-variable">$HOME</span>/dev_env/python/python_env/virtualenv_bin virtualenv virtualenvwrapper</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果不想安装到指定目录 执行</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">HOME/dev_env/python/python_env/3.13.7/bin/python3 -m pip install --user virtualenv virtualenvwrapper <span class="hljs-comment"># --user 表示用户级安装</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">检查是否安装成功，如果有输出信息，就表示按照成功</span> <br><span class="hljs-meta prompt_">$</span><span class="language-bash">HOME/dev_env/python/python_env/3.13.7/bin/python3 -m pip show virtualenvwrapper</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">HOME/dev_env/python/python_env/3.13.7/bin/python3 -m pip show virtualenv</span><br></code></pre></td></tr></table></figure></li>
-<li><p>设置virtualenv环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">在~/.zshrc(Mac)或者其他的配置文件中进行如下配置</span> <br>export WORKON_HOME=$HOME/dev_env/python/virtualenvs<br>export VIRTUALENVWRAPPER_PYTHON=$HOME/dev_env/python/python_env/3.13.7/bin/python3<br>export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/dev_env/python/python_env/virtualenv_bin/bin/virtualenv<br>export PATH=$HOME/dev_env/python/python_env/virtualenv_bin/bin:$PATH<br>source $HOME/dev_env/python/python_env/virtualenv_bin/bin/virtualenvwrapper.sh<br></code></pre></td></tr></table></figure>
-<p>重新加载配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">source ~/.zshrc # mac 环境<br></code></pre></td></tr></table></figure>
-<p>如果上述命令 报错：'virtualenvwrapper.hook_loader'
-(ModuleNotFoundError: No module named 'virtualenvwrapper')
-virtualenvwrapper.sh: There was a problem running the initialization
-hooks.</p>
-<p>这是因为 <strong>virtualenvwrapper 模块和 Python 环境不匹配</strong>
-问题, 使用 —prefix安装 virtualenv 、virtualenvwrapper后，要把 Python
-site-packages 路径加入 <code>PYTHONPATH</code></p></li>
-<li><p>设置 PYTHONPATH</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">export PYTHONPATH=$HOME/dev_env/python/python_env/virtualenv_bin/lib/python3.13/site-packages:$PYTHONPATH<br></code></pre></td></tr></table></figure>
-<p>完整版配置信息如下:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">export PATH=$HOME/dev_env/python/python_env/3.13.7/bin:$PATH<br>export WORKON_HOME=$HOME/dev_env/python/virtualenvs<br>export VIRTUALENVWRAPPER_PYTHON=$HOME/dev_env/python/python_env/3.13.7/bin/python3<br>export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/dev_env/python/python_env/virtualenv_bin/bin/virtualenv<br>export PATH=$HOME/dev_env/python/python_env/virtualenv_bin/bin:$PATH<br>export PYTHONPATH=$HOME/dev_env/python/python_env/virtualenv_bin/lib/python3.13/site-packages:$PYTHONPATH<br>source $HOME/dev_env/python/python_env/virtualenv_bin/bin/virtualenvwrapper.sh<br></code></pre></td></tr></table></figure></li>
-<li><p>重新加载配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">环境变量写在哪个配置文件，就对哪个配置文件执行 <span class="hljs-built_in">source</span>命令</span><br>source ~/.zshrc #mac zsh 或者 source ~/.bash_profile<br><span class="hljs-meta prompt_">#</span><span class="language-bash">其他系统执行 如 <span class="hljs-built_in">source</span> ~/.bashrc 等</span><br><br></code></pre></td></tr></table></figure></li>
-<li><p>检查效果</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">1. 列出所有虚拟环境 lsvirtualenv 或 workon</span><br>workon <br>lsvirtualenv<br><span class="hljs-meta prompt_"># </span><span class="language-bash">2. 进入指定虚拟环境env1</span><br>workon env1<br><span class="hljs-meta prompt_"># </span><span class="language-bash">3. 创建一个新的虚拟环境env2</span><br>mkvirtualenv env2<br><span class="hljs-meta prompt_"># </span><span class="language-bash">4. 退出当前的虚拟环境，回到全局环境</span><br>deactivate<br><span class="hljs-meta prompt_"># </span><span class="language-bash">5. 删除一个指定的虚拟环境</span><br>rmvirtualenv env2<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">6. 指定python 版本 创建虚拟环境</span><br>mkvirtualenv --python=python3.6 venv<br><br></code></pre></td></tr></table></figure></li>
+<li>Ubuntu LVM使用时间线</li>
 </ol>
+<p>Ubuntu 18.04 LTS (2018) → 开始更广泛使用 LVM Ubuntu 20.04 LTS (2020)
+→ LVM 成为服务器版常见选择 Ubuntu 22.04 LTS (2022) → 在更多场景默认使用
+LVM</p>
+<p><strong>LVM 普及趋势</strong>：从 Ubuntu 18.04
+开始越来越常见，<strong>服务器版更普遍</strong>：服务器安装更倾向于使用
+LVM。</p>
+<blockquote>
+<p>LVM是一种用于Linux的逻辑卷管理器，它允许你管理磁盘驱动器和其他大容量存储设备。使用LVM，你可以将多个物理磁盘或分区组合成一个卷组，然后从该卷组中创建逻辑卷。逻辑卷可以像普通分区一样使用，但它们具有更灵活的特性，例如可以动态调整大小、跨多个磁盘等。</p>
+</blockquote>
+<p>LVM结构如下图所示：</p>
+<p>物理卷 (PV) → 卷组 (VG) → 逻辑卷 (LV) ↑ ↑ ↑ 磁盘分区 多个PV组合
+实际使用的卷</p>
+<p>（后面用到的命令, PV、 VG、LV分别表示 对应查看磁盘对应的LVM命令信息
+）</p>
+<ol start="2" type="1">
+<li><p>在服务器安装过程中（以 24.04服务版为例），LVM是默认选项。</p>
+<p><img src="lvm.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ol>
+<p>在图片中可以看到，默认是"Set up this disk as an LVM group"</p>
+<ol start="3" type="1">
+<li><p>系统安装成功后，可以查看磁盘信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"> <span class="hljs-comment">#查看磁盘使用信息</span><br><span class="hljs-built_in">df</span> -h<br></code></pre></td></tr></table></figure>
+<p><img src="disk-1.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ol>
+<p>安装过程中，磁盘是50G， 但是看到磁盘的信息加起来不到50G，
+而且/dev/mapper/ubuntu–vg-ubuntu–lv
+只有24G。那剩余的磁盘去哪里了呢。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 查看磁盘</span><br><span class="hljs-attribute">fdisk</span> -l <br></code></pre></td></tr></table></figure>
+<p><img src="disk-2.png" srcset="/img/loading.gif" lazyload /></p>
+<p>在图片中可以看到 /dev/sda3 有48G,
+磁盘50G是没有问题的。只是使用的只有24G（/dev/mapper/ubuntu–vg-ubuntu–lv）。</p>
+<ol start="4" type="1">
+<li><p>查看LVM信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">扫描物理卷</span><br>sudo pvscan<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示物理卷详细信息</span><br>sudo pvdisplay<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示卷组</span><br>sudo vgdisplay<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示逻辑卷</span><br>sudo lvdisplay<br></code></pre></td></tr></table></figure>
+<p>pvscan 可以看到磁盘信息</p>
+<p><img src="pvscan.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ol>
+<p>​ pvdisplay 可以看到 total PE 是12287 , Free PE 6144, Allocate PE
+6143, 那么少的24G 就是 free PE</p>
+<p>​ <img src="pvdisplay.png" srcset="/img/loading.gif" lazyload /></p>
+<p>vgdisplay 命令可以看的更清楚， Free PE 24GB, df -h 少的24G找到了。
+Alloc PE 24GB就是 df -h 看到的磁盘空间。</p>
+<p><img src="vgdisplay.png" srcset="/img/loading.gif" lazyload /></p>
+<p>lvdisplay 可以看到 逻辑卷的具体信息，分配的空间是24G,
+逻辑卷的路径、名称、卷组的名称等等</p>
+<p><img src="lvdisplay.png" srcset="/img/loading.gif" lazyload /></p>
+<ol start="5" type="1">
+<li><p>上面的命令可以加参数</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 查看 ubuntu-vg 卷信息</span><br>sudo vgdisplay ubuntu-vg<br><span class="hljs-comment"># 查看 /dev/sda3 的磁盘信息</span><br>sudo pvdisplay <span class="hljs-regexp">/dev/</span>sda3<br></code></pre></td></tr></table></figure></li>
+<li><p>lsblk 和 blkid 是 Linux
+中用于查看块设备（如硬盘、分区等）信息的两个常用命令，可提供设备名称、大小、文件系统类型、挂载点等详细信息。</p>
+<p>lsblk 命令结果</p></li>
+</ol>
+<p><img src="lsblk.png" srcset="/img/loading.gif" lazyload /></p>
+<p>blkid命令结果</p>
+<p><img src="blkid.png" srcset="/img/loading.gif" lazyload /></p>
+<ol start="7" type="1">
+<li><p>已分配的磁盘空间用尽，<strong>系统不会自动扩展</strong>（不会自动把未分配的磁盘进行空间扩展），需要手动处理。</p>
+<blockquote>
+<p>不进行自动扩展的原因：</p>
+<ol type="1">
+<li><strong>LVM 设计原则</strong>：LVM 需要明确的管理员操作确认</li>
+<li><strong>文件系统独立性</strong>：逻辑卷扩展和文件系统调整是两个独立步骤</li>
+<li><strong>风险控制</strong>：自动扩展可能导致数据损坏或系统不稳定</li>
+</ol>
+</blockquote></li>
+<li><p>将未使用的空间进行扩展</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 检查当前空间状况（确认问题）</span><br><span class="hljs-built_in">df</span> -h<br>sudo vgdisplay ubuntu-vg<br><br><span class="hljs-comment"># 2. 扩展逻辑卷（使用部分或全部空闲空间）</span><br><span class="hljs-comment"># 扩展10G：</span><br>sudo lvextend -L +10G /dev/ubuntu-vg/ubuntu-lv<br><br><span class="hljs-comment"># 或者扩展所有空闲空间：</span><br>sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv<br><br><span class="hljs-comment"># 3. 调整文件系统大小</span><br><span class="hljs-comment"># 对于ext4：</span><br>sudo resize2fs /dev/ubuntu-vg/ubuntu-lv<br><br><span class="hljs-comment"># 对于xfs：</span><br>sudo xfs_growfs /<br><br><span class="hljs-comment"># 4. 验证扩展结果</span><br><span class="hljs-built_in">df</span> -h<br></code></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p><strong>扩展逻辑卷后必须执行
+<code>sudo resize2fs /dev/ubuntu-vg/ubuntu-lv</code></strong></p>
+<p>逻辑卷扩展和文件系统调整是 两个独立的操作：</p>
+<ol type="1">
+<li>逻辑卷扩展 (lvextend) 只是扩大了"容器"的大小</li>
+</ol>
+<p>相当于给房子扩建了房间</p>
+<p>但文件系统还不知道这个变化</p>
+<ol start="2" type="1">
+<li>文件系统调整 (resize2fs) 让文件系统识别并使用新的空间</li>
+</ol>
+<p>相当于告诉家具可以摆放到新扩建的房间</p>
+<p>必须执行才能实际使用新空间</p>
+</blockquote>
+<p>在执行 lvextend 和 resize2fs 命令时，后面的 路径就是 lvdisplay显示的
+<strong>LV Path</strong>。</p>
+<p><img src="lvdisplay-1.png" srcset="/img/loading.gif" lazyload /></p>
+<p>空间扩展成功，并且 重新调整文件系统大小后，再用df -h或者 df
+-hT查看，就发现可用空间已经变大了。</p>
+<p><img src="df-hT.png" srcset="/img/loading.gif" lazyload /></p>
+<p>综上，LVM的基本使用就没有什么问题了。</p>
 
                 
               </div>
@@ -343,22 +406,8 @@ site-packages 路径加入 <code>PYTHONPATH</code></p></li>
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF-os/" class="category-chain-item">-[计算机技术, os]</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/" class="category-chain-item">开发语言</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/python/" class="category-chain-item">python</a>
-  
-  
-
-  
-
   
 
       </span>
@@ -379,18 +428,12 @@ site-packages 路径加入 <code>PYTHONPATH</code></p></li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/" title="Ubuntu LVM（逻辑卷管理）使用">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Ubuntu LVM（逻辑卷管理）使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/08/%E6%9C%AC%E5%9C%B0%E5%88%B6%E4%BD%9Cdocker%E9%95%9C%E5%83%8F/" title="本地制作docker镜像">
-                        <span class="hidden-mobile">本地制作docker镜像</span>
+                      <a href="/2025/09/17/Mac%E7%8E%AF%E5%A2%83python%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE/" title="Mac环境python环境设置">
+                        <span class="hidden-mobile">Mac环境python环境设置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
