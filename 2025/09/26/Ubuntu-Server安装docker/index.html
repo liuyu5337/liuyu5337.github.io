@@ -16,27 +16,23 @@
   <meta name="author" content="zhq">
   <meta name="keywords" content="">
   
-    <meta name="description" content="VMWare或者VirtualBox安装Ubuntu Server后，如果ubuntu server需要通过宿主机(windows&#x2F;Mac)代理(clash)访问Docker 或者 GitHub，需要在Ubuntu Server设置代理配置。 宿主机配置 首先，宿主机(windows&#x2F;Mac)首先需要打开&quot;允许来自局域网的连接&quot; mac配置  windows配置  虚拟机配置代理 普通代理 在ub">
+    <meta name="description" content="Ubuntu server 安装docker整理，详情请参看docker文档 1. 安装 apt 仓库 12345678910111213# Add Docker&#x27;s official GPG key:sudo apt-get updatesudo apt-get install ca-certificates curlsudo install -m 0755 -d &#x2F;etc&#x2F;apt&#x2F;k">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NAT模式Ubuntu Server下的Docker代理设置">
-<meta property="og:url" content="http://liuyu5337.github.io/2025/09/26/NAT%E6%A8%A1%E5%BC%8FUbuntu-Server%E4%B8%8B%E7%9A%84Docker%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/index.html">
+<meta property="og:title" content="Ubuntu Server安装docker">
+<meta property="og:url" content="http://liuyu5337.github.io/2025/09/26/Ubuntu-Server%E5%AE%89%E8%A3%85docker/index.html">
 <meta property="og:site_name" content="零壹网络">
-<meta property="og:description" content="VMWare或者VirtualBox安装Ubuntu Server后，如果ubuntu server需要通过宿主机(windows&#x2F;Mac)代理(clash)访问Docker 或者 GitHub，需要在Ubuntu Server设置代理配置。 宿主机配置 首先，宿主机(windows&#x2F;Mac)首先需要打开&quot;允许来自局域网的连接&quot; mac配置  windows配置  虚拟机配置代理 普通代理 在ub">
+<meta property="og:description" content="Ubuntu server 安装docker整理，详情请参看docker文档 1. 安装 apt 仓库 12345678910111213# Add Docker&#x27;s official GPG key:sudo apt-get updatesudo apt-get install ca-certificates curlsudo install -m 0755 -d &#x2F;etc&#x2F;apt&#x2F;k">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://liuyu5337.github.io/2025/09/26/NAT%E6%A8%A1%E5%BC%8FUbuntu-Server%E4%B8%8B%E7%9A%84Docker%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/mac.png">
-<meta property="og:image" content="http://liuyu5337.github.io/2025/09/26/NAT%E6%A8%A1%E5%BC%8FUbuntu-Server%E4%B8%8B%E7%9A%84Docker%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/windows.png">
-<meta property="og:image" content="http://liuyu5337.github.io/2025/09/26/NAT%E6%A8%A1%E5%BC%8FUbuntu-Server%E4%B8%8B%E7%9A%84Docker%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/docker-pull.png">
-<meta property="article:published_time" content="2025-09-26T01:23:05.000Z">
-<meta property="article:modified_time" content="2025-09-26T02:00:16.254Z">
+<meta property="article:published_time" content="2025-09-26T02:03:35.000Z">
+<meta property="article:modified_time" content="2025-09-26T05:48:23.781Z">
 <meta property="article:author" content="zhq">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://liuyu5337.github.io/2025/09/26/NAT%E6%A8%A1%E5%BC%8FUbuntu-Server%E4%B8%8B%E7%9A%84Docker%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/mac.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>NAT模式Ubuntu Server下的Docker代理设置 - 零壹网络</title>
+  <title>Ubuntu Server安装docker - 零壹网络</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -206,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="NAT模式Ubuntu Server下的Docker代理设置"></span>
+            <span id="subtitle" data-typed-text="Ubuntu Server安装docker"></span>
           
         </div>
 
@@ -217,7 +213,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-26 09:23" pubdate>
+        <time datetime="2025-09-26 10:03" pubdate>
           2025年9月26日 上午
         </time>
       </span>
@@ -229,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          351 字
+          275 字
         
       </span>
     
@@ -277,40 +273,30 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">NAT模式Ubuntu Server下的Docker代理设置</h1>
+            <h1 id="seo-header">Ubuntu Server安装docker</h1>
             
             
               <div class="markdown-body">
                 
-                <p>VMWare或者VirtualBox安装Ubuntu Server后，如果ubuntu
-server需要通过宿主机(windows/Mac)代理(clash)访问Docker 或者
-GitHub，需要在Ubuntu Server设置代理配置。</p>
-<h4 id="宿主机配置">宿主机配置</h4>
-<p>首先，宿主机(windows/Mac)首先需要打开"允许来自局域网的连接"</p>
-<p>mac配置</p>
-<p><img src="mac.png" srcset="/img/loading.gif" lazyload /></p>
-<p>windows配置</p>
-<p><img src="windows.png" srcset="/img/loading.gif" lazyload /></p>
-<h4 id="虚拟机配置代理">虚拟机配置代理</h4>
-<h5 id="普通代理">普通代理</h5>
-<p>在ubuntu server配置代理:</p>
-<p>~/.bashrc</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">export https_proxy=http://192.168.132.1:7897  # 按照宿主机在虚拟网络的地址进行配置<br>export http_proxy=http://192.168.132.1:7897<br>export all_proxy=socks5://192.168.132.1:7897<br></code></pre></td></tr></table></figure>
-<p>执行 source ~/.bashrc，这样系统启动之后，就可以自动使用代理。</p>
-<h5 id="docker代理">docker代理</h5>
-<p>检查是否存在 /etc/systemd/system/docker.service.d/ 目录 如果不存在
-需要先建立目录 (sudo mkdir -p /etc/systemd/system/docker.service.d/)</p>
-<p>如果不存在配置文件（/etc/systemd/system/docker.service.d/proxy.conf）就新建配置文件，然后编辑该配置文件,
-内容如下:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">[Service]<br>Environment=&quot;HTTP_PROXY=http://192.168.132.1:7897&quot;<br>Environment=&quot;HTTPS_PROXY=http://192.168.132.1:7897&quot;<br>Environment=&quot;NO_PROXY=localhost,127.0.0.1,192.168.0.0/16&quot;  # 忽略内网代理<br></code></pre></td></tr></table></figure>
-<p>然后执行如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo systemctl daemon-reload<br>sudo systemctl restart docker  #重启docker <br></code></pre></td></tr></table></figure>
-<p>测试docker拉取镜像是否成功</p>
-<p><img src="docker-pull.png" srcset="/img/loading.gif" lazyload /></p>
-<p>拉取镜像成功。</p>
-<p>总结：如果要在NAT网络模式下，实现虚拟机的代理上网，宿主机需要
-<strong>允许来自局域网的连接</strong>, 虚拟机 需要分别在 ~/.bashrc和
-docker对应的配置文件中添加对应的代理信息。</p>
+                <p>Ubuntu server 安装docker整理，详情请参看<a
+target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">docker文档</a></p>
+<h5 id="安装-apt-仓库">1. 安装 apt 仓库</h5>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Add Docker<span class="hljs-string">&#x27;s official GPG key:</span></span><br>sudo apt-get update<br>sudo apt-get install ca-certificates curl<br>sudo install -m 0755 -d /etc/apt/keyrings<br>sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc<br>sudo chmod a+r /etc/apt/keyrings/docker.asc<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-string">Add the repository to Apt sources:</span></span><br>echo \<br>  &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \<br><span class="hljs-meta prompt_">  $</span><span class="language-bash"><span class="hljs-string">(. /etc/os-release &amp;&amp; echo &quot;$&#123;UBUNTU_CODENAME:-$VERSION_CODENAME&#125;&quot;) stable&quot; | \</span></span><br><span class="hljs-string"><span class="language-bash">  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span></span><br>sudo apt-get update<br></code></pre></td></tr></table></figure>
+<h5 id="安装docker包">2. 安装docker包</h5>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin<br></code></pre></td></tr></table></figure>
+<h5 id="docker服务相关的命令">3. docker服务相关的命令</h5>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查看docker 状态</span><br>sudo systemctl status docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动docker服务</span><br>sudo systemctl start docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">重启docker服务</span><br>sudo systemctl restart docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">停止docker服务</span><br>sudo systemctl stop docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置服务在系统开机时自动启动</span><br>sudo systemctl enable docker<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">docker用户组</span> <br>sudo groupadd docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">将当前用户加到docker组</span><br>sudo usermod -aG docker $USER<br></code></pre></td></tr></table></figure>
+<h5 id="安装docker-compose">4. 安装docker-compose</h5>
+<ol type="1">
+<li>apt安装</li>
+</ol>
+<p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt-get update<br>sudo apt-get install docker-compose-plugin<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">更新</span><br>sudo apt-get update<br>sudo apt-get install docker-compose-plugin<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">测试</span><br></code></pre></td></tr></table></figure></p>
+<ol start="2" type="1">
+<li><p>手动安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">DOCKER_CONFIG=$&#123;DOCKER_CONFIG:-$HOME/.docker&#125;<br>mkdir -p $DOCKER_CONFIG/cli-plugins<br>curl -SL https://github.com/docker/compose/releases/download/v2.39.4/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose<br><br>chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">测试</span><br>docker compose version<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="卸载docker">5. 卸载docker</h5>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Uninstall the Docker Engine, CLI, containerd, and Docker Compose packages:</span><br>sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras<br><span class="hljs-meta prompt_"># </span><span class="language-bash">To delete all images, containers, and volumes:</span><br>sudo rm -rf /var/lib/docker<br>sudo rm -rf /var/lib/containerd<br><span class="hljs-meta prompt_"># </span><span class="language-bash">Remove <span class="hljs-built_in">source</span> list and keyrings</span><br>sudo rm /etc/apt/sources.list.d/docker.list<br>sudo rm /etc/apt/keyrings/docker.asc<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -358,18 +344,12 @@ docker对应的配置文件中添加对应的代理信息。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/26/Ubuntu-Server%E5%AE%89%E8%A3%85docker/" title="Ubuntu Server安装docker">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Ubuntu Server安装docker</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/23/Ubuntu-LVM%EF%BC%88%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86%EF%BC%89%E4%BD%BF%E7%94%A8/" title="Ubuntu LVM（逻辑卷管理）使用">
-                        <span class="hidden-mobile">Ubuntu LVM（逻辑卷管理）使用</span>
+                      <a href="/2025/09/26/NAT%E6%A8%A1%E5%BC%8FUbuntu-Server%E4%B8%8B%E7%9A%84Docker%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/" title="NAT模式Ubuntu Server下的Docker代理设置">
+                        <span class="hidden-mobile">NAT模式Ubuntu Server下的Docker代理设置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
