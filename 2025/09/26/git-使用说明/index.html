@@ -16,15 +16,15 @@
   <meta name="author" content="zhq">
   <meta name="keywords" content="">
   
-    <meta name="description" content="把旧版本的ubuntu(以14.04为例) 更新为国内源  首先备份原来的源列表：  1sudo cp &#x2F;etc&#x2F;apt&#x2F;sources.list &#x2F;etc&#x2F;apt&#x2F;sources.list.bak  编辑源列表文件：  1sudo vi &#x2F;etc&#x2F;apt&#x2F;sources.list  将文件内容替换为国内源，以下是几个常用的国内源选项：  12345678910111213141516171819">
+    <meta name="description" content="git是目前最流行的版本管理工具。 Git ssh 配置 生成签名 生成一个名为 my_github_key 的密钥文件 12345# 使用 Ed25519 算法ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot; -f ~&#x2F;.ssh&#x2F;my_github_key# 或者使用 RSA 算法ssh-keygen -t rsa -b 40">
 <meta property="og:type" content="article">
-<meta property="og:title" content="旧版本的Ubuntu 使用说明">
-<meta property="og:url" content="http://liuyu5337.github.io/2025/09/26/%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84Ubuntu-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/index.html">
+<meta property="og:title" content="git 使用说明">
+<meta property="og:url" content="http://liuyu5337.github.io/2025/09/26/git-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/index.html">
 <meta property="og:site_name" content="零壹网络">
-<meta property="og:description" content="把旧版本的ubuntu(以14.04为例) 更新为国内源  首先备份原来的源列表：  1sudo cp &#x2F;etc&#x2F;apt&#x2F;sources.list &#x2F;etc&#x2F;apt&#x2F;sources.list.bak  编辑源列表文件：  1sudo vi &#x2F;etc&#x2F;apt&#x2F;sources.list  将文件内容替换为国内源，以下是几个常用的国内源选项：  12345678910111213141516171819">
+<meta property="og:description" content="git是目前最流行的版本管理工具。 Git ssh 配置 生成签名 生成一个名为 my_github_key 的密钥文件 12345# 使用 Ed25519 算法ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot; -f ~&#x2F;.ssh&#x2F;my_github_key# 或者使用 RSA 算法ssh-keygen -t rsa -b 40">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-09-26T10:00:16.000Z">
-<meta property="article:modified_time" content="2025-09-26T10:45:29.420Z">
+<meta property="article:published_time" content="2025-09-26T10:46:21.000Z">
+<meta property="article:modified_time" content="2025-09-26T11:08:34.681Z">
 <meta property="article:author" content="zhq">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -32,7 +32,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>旧版本的Ubuntu 使用说明 - 零壹网络</title>
+  <title>git 使用说明 - 零壹网络</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="旧版本的Ubuntu 使用说明"></span>
+            <span id="subtitle" data-typed-text="git 使用说明"></span>
           
         </div>
 
@@ -213,7 +213,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-26 18:00" pubdate>
+        <time datetime="2025-09-26 18:46" pubdate>
           2025年9月26日 晚上
         </time>
       </span>
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          440 字
+          552 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -273,41 +273,40 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">旧版本的Ubuntu 使用说明</h1>
+            <h1 id="seo-header">git 使用说明</h1>
             
             
               <div class="markdown-body">
                 
-                <h5
-id="把旧版本的ubuntu以14.04为例-更新为国内源">把旧版本的ubuntu(以14.04为例)
-更新为国内源</h5>
-<ol type="1">
-<li>首先备份原来的源列表：</li>
-</ol>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">sudo <span class="hljs-keyword">cp</span> /etc/apt/sources<span class="hljs-meta">.list</span> /etc/apt/sources<span class="hljs-meta">.list</span>.bak<br></code></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>编辑源列表文件：</li>
-</ol>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">sudo vi /etc/apt/sources<span class="hljs-meta">.list</span><br></code></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>将文件内容替换为国内源，以下是几个常用的国内源选项：</li>
-</ol>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># 阿里云</span><br>deb http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br><br><span class="hljs-meta">#清华</span><br>deb http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-security main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse</span><br>deb http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-security main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse</span><br>deb-src http:<span class="hljs-comment">//mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse</span><br></code></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>更新测试</li>
-</ol>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo apt-<span class="hljs-keyword">get</span> <span class="hljs-keyword">update</span><br></code></pre></td></tr></table></figure>
-<h5 id="安装docker">安装docker</h5>
-<p>docker的安装对操作版本有一个要求，因此旧版本的ubuntu操作系统无法安装新版的docker.</p>
-<p>推荐安装方法，使用国内镜像源阿里云（推荐）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">卸载已有的Docker（如果有）</span><br>sudo apt-get remove docker docker-engine docker.io<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装基础工具</span><br>sudo apt-get update<br>sudo apt-get install -y \<br>    apt-transport-https \<br>    ca-certificates \<br>    curl \<br>    software-properties-common<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加阿里云Docker镜像源</span><br>curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -<br><br>sudo add-apt-repository \<br>   &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \<br>   trusty \<br>   stable&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">更新并安装</span><br>sudo apt-get update<br>sudo apt-get install -y docker-ce<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">当前用户加入到docker组</span><br>sudo usermod -aG docker $USER<br><span class="hljs-meta prompt_"># </span><span class="language-bash">重新登录或执行以下命令生效</span><br>newgrp docker<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>如果在apt update 时，遇到 错误 <a
-target="_blank" rel="noopener" href="https://download.docker.com/">https://download.docker.com</a>
-trusty/stable amd64 Packages gnutls_handshake() failed: A TLS packet
-with unexpected length was received. apt update 这种错误。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt;<span class="hljs-comment"># 清除旧的源缓存</span><br>&gt;sudo <span class="hljs-built_in">rm</span> -rf /var/lib/apt/lists/*<br>&gt;<span class="hljs-comment"># 删除  Docker 源</span><br>&gt;sudo <span class="hljs-built_in">rm</span> -f /etc/apt/sources.list.d/docker.list<br></code></pre></td></tr></table></figure>
-</blockquote>
+                <p>git是目前最流行的版本管理工具。</p>
+<h4 id="git-ssh-配置">Git ssh 配置</h4>
+<h5 id="生成签名">生成签名</h5>
+<p>生成一个名为 <code>my_github_key</code> 的密钥文件</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-comment"># 使用 Ed25519 算法</span><br>ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;your_email@example.com&quot;</span> -f ~<span class="hljs-regexp">/.ssh/m</span>y_github_key<br><br><span class="hljs-comment"># 或者使用 RSA 算法</span><br>ssh-keygen -t rsa -b <span class="hljs-number">4096</span> -C <span class="hljs-string">&quot;your_email@example.com&quot;</span> -f ~<span class="hljs-regexp">/.ssh/m</span>y_work_key<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-f ~/.ssh/my_github_key</code> 表示将密钥文件保存到
+<code>~/.ssh/</code> 目录下，文件名为
+<code>my_github_key</code>（私钥）和
+<code>my_github_key.pub</code>（公钥）</li>
+</ul>
+<h5 id="测试连接">测试连接</h5>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-comment"># 添加到 SSH 代理</span><br>ssh-add ~<span class="hljs-regexp">/.ssh/my</span>_github_key<br><br><span class="hljs-comment"># 测试连接（指定密钥文件）</span><br>ssh -i ~<span class="hljs-regexp">/.ssh/my</span>_github_key -T git<span class="hljs-variable">@github</span>.com<br><br><span class="hljs-comment"># 直接测试（默认会使用代理中的密钥）</span><br>ssh -T git<span class="hljs-variable">@github</span>.com<br><br><span class="hljs-comment"># 如果有多个密钥，可明确指定 RSA 密钥文件测试</span><br>ssh -i ~<span class="hljs-regexp">/.ssh/id</span>_rsa -T git<span class="hljs-variable">@github</span>.com<br></code></pre></td></tr></table></figure>
+<h5 id="多个git配置">多个git配置</h5>
+<p>ssh登录多个地址需要编辑~/.ssh/config配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">Host 主机标识1(如192.168.10.10)<br>  HostName git地址(如192.168.10.10)<br>  User git (用户)<br>  Port 22 (端口)<br>  PubkeyAcceptedKeyTypes ssh-ed25519<br>  IdentityFile 签名文件地址(如~/.ssh/id_ed25519)<br><br>Host 主机标识2(如192.168.10.11)<br>  HostName git地址(如192.168.10.11)<br>  User 用户名<br>  Port 22(端口)<br>  IdentityFile  签名文件地址(如~/.ssh/id_ed25519_1)<br></code></pre></td></tr></table></figure>
+<h5 id="使用">使用</h5>
+<p>如果ssh
+key在生成的时候，设置了密码,每次git需要输入密码，为了避免每次输入密码，可以使用
+eval "$(ssh-agent -s)",主要作用是<strong>管理 SSH
+密钥的密码缓存</strong>，避免频繁输入密钥密码。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-comment"># 启动 SSH 代理</span><br>eval <span class="hljs-string">&quot;<span class="hljs-variable">$(ssh-agent -s)</span>&quot;</span><br><br><span class="hljs-comment">#将 密钥添加到代理</span><br><span class="hljs-comment"># 添加默认 RSA 密钥</span><br>ssh-<span class="hljs-built_in">add</span> ~/.ssh/id_rsa<br><br><span class="hljs-comment"># 如果是自定义名称的 RSA 密钥</span><br>ssh-<span class="hljs-built_in">add</span> ~/.ssh/你的自定义密钥名<br></code></pre></td></tr></table></figure>
+<p>为了避免依赖 <code>ssh-agent</code>，推荐通过
+<code>~/.ssh/config</code> 明确指定密钥路径，这样无论是否使用
+<code>ssh-add</code>，Git 都能稳定工作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ~/.ssh/config</span><br>Host github.com  <span class="hljs-comment"># 目标 Git 服务器（如 github.com、gitlab公司域名）</span><br>  HostName github.com<br>  User git<br>  IdentityFile ~/.ssh/my_key  <span class="hljs-comment"># 你的密钥路径（无论是否默认名称）</span><br>  <span class="hljs-comment"># 若密钥有密码，可添加以下配置避免每次输入（需配合 ssh-agent）</span><br>  AddKeysToAgent <span class="hljs-built_in">yes</span>  <span class="hljs-comment"># 自动将密钥添加到 ssh-agent（需 OpenSSH 7.2+）</span><br>  UseKeychain <span class="hljs-built_in">yes</span>     <span class="hljs-comment"># macOS 保存密码到钥匙串（可选）</span><br></code></pre></td></tr></table></figure>
+<p>配置后，即使不手动执行 <code>ssh-add</code>，SSH 客户端也会通过
+<code>IdentityFile</code> 找到密钥，且 <code>AddKeysToAgent yes</code>
+会自动将密钥加载到代理（仅首次需要输入密码，之后缓存）。</p>
 
                 
               </div>
@@ -326,12 +325,12 @@ with unexpected length was received. apt update 这种错误。</p>
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" class="category-chain-item">计算机技术</a>
+  <a href="/categories/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/OS/" class="category-chain-item">OS</a>
+  <a href="/categories/%E6%95%99%E7%A8%8B/git/" class="category-chain-item">git</a>
   
   
 
@@ -355,18 +354,12 @@ with unexpected length was received. apt update 这种错误。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/26/git-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" title="git 使用说明">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">git 使用说明</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/26/Ubuntu-Server%E5%AE%89%E8%A3%85docker/" title="Ubuntu Server安装docker">
-                        <span class="hidden-mobile">Ubuntu Server安装docker</span>
+                      <a href="/2025/09/26/%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84Ubuntu-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" title="旧版本的Ubuntu 使用说明">
+                        <span class="hidden-mobile">旧版本的Ubuntu 使用说明</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
