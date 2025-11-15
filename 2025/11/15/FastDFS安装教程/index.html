@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zhq">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="FastDFS 是一个开源的高性能分布式文件系统（DFS）。 它的主要功能包括：文件存储，文件同步和文件访问，以及高容量和负载平衡。主要解决了海量数据存储问题，特别适合以中小文件（建议范围：4KB &lt; file_size &lt;500MB）为载体的在线服务。 FastDFS 系统有三个角色：跟踪服务器(Tracker Server)、存储服务器(Storage Server)和客户端(Cl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastDFS安装教程">
+<meta property="og:url" content="http://liuyu5337.github.io/2025/11/15/FastDFS%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="零壹网络">
+<meta property="og:description" content="FastDFS 是一个开源的高性能分布式文件系统（DFS）。 它的主要功能包括：文件存储，文件同步和文件访问，以及高容量和负载平衡。主要解决了海量数据存储问题，特别适合以中小文件（建议范围：4KB &lt; file_size &lt;500MB）为载体的在线服务。 FastDFS 系统有三个角色：跟踪服务器(Tracker Server)、存储服务器(Storage Server)和客户端(Cl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/11/15/FastDFS%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E7%89%88%E6%9C%AC.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/11/15/FastDFS%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E8%BE%93%E5%87%BA1.png">
+<meta property="og:image" content="http://liuyu5337.github.io/2025/11/15/FastDFS%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E8%BE%93%E5%87%BA2.png">
+<meta property="article:published_time" content="2025-11-15T08:06:37.000Z">
+<meta property="article:modified_time" content="2025-11-15T09:29:36.908Z">
+<meta property="article:author" content="zhq">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://liuyu5337.github.io/2025/11/15/FastDFS%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/%E7%89%88%E6%9C%AC.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>FastDFS安装教程 - 零壹网络</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"liuyu5337.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>零壹网络</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="FastDFS安装教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-15 16:06" pubdate>
+          2025年11月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">FastDFS安装教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>FastDFS 是一个开源的高性能分布式文件系统（DFS）。
+它的主要功能包括：文件存储，文件同步和文件访问，以及高容量和负载平衡。主要解决了海量数据存储问题，特别适合以中小文件（建议范围：4KB
+&lt; file_size &lt;500MB）为载体的在线服务。</p>
+<p>FastDFS 系统有三个角色：跟踪服务器(Tracker
+Server)、存储服务器(Storage Server)和客户端(Client)。</p>
+<p>　　<strong>Tracker
+Server</strong>：跟踪服务器，主要做调度工作，起到均衡的作用；负责管理所有的
+storage server和 group，每个 storage 在启动后会连接
+Tracker，告知自己所属 group 等信息，并保持周期性心跳。</p>
+<p>　　<strong>Storage
+Server</strong>：存储服务器，主要提供容量和备份服务；以 group
+为单位，每个 group 内可以有多台 storage server，数据互为备份。</p>
+<p>　　<strong>Client</strong>：客户端，上传下载数据的服务器，也就是我们自己的项目所部署在的服务器。</p>
+<h4 id="安装">安装</h4>
+<p>在github上clone
+或者下载源代码。安装fastDFS所需要的源码和版本如下:</p>
+<p><img src="版本.png" srcset="/img/loading.gif" lazyload /></p>
+<p>本次安装是 <strong>FastDFS
+在两个节点上的完整可落地部署方案</strong>，包括 <strong>Tracker +
+Storage 双节点部署</strong>（每个节点既是 Tracker 又是
+Storage），保证可正常运行。</p>
+<p>拓扑部署：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs markdown">节点1：192.168.243.222<br><span class="hljs-bullet">   -</span> tracker<br><span class="hljs-bullet">   -</span> storage (group1)<br><br>节点2：192.168.243.223<br><span class="hljs-bullet">   -</span> tracker<br><span class="hljs-bullet">   -</span> storage (group1)<br><br></code></pre></td></tr></table></figure>
+<h5 id="安装依赖在两个节点都执行">安装依赖(在两个节点都执行)</h5>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">yum install -y git gcc gcc-c++ make <span class="hljs-built_in">auto</span>make <span class="hljs-built_in">auto</span>conf libtool pcre pcre-devel zlib zlib-devel openssl openssl-devel wget<br></code></pre></td></tr></table></figure>
+<h5
+id="创建fastdfs目录在两个节点都执行">创建FastDFS目录(在两个节点都执行)</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p /data/fastdfs<br><span class="hljs-built_in">mkdir</span> -p /data/fastdfs/storage<br><span class="hljs-built_in">mkdir</span> -p /data/fastdfs/tracker<br><span class="hljs-built_in">mkdir</span> -p /data/fastdfs/client  <span class="hljs-comment">#存储client 的日志（client.log）client 临时文件 调试时的 dump 信息</span><br></code></pre></td></tr></table></figure>
+<h5 id="安装-libfastcommon在两个节点都执行">安装
+libfastcommon(在两个节点都执行)</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/happyfish100/libfastcommon.git<br><span class="hljs-built_in">cd</span> libfastcommon<br>或者 unzip libfastcommon-1.0.82.zip <span class="hljs-comment"># 根据下载的压缩包类型 解压缩文件</span><br>./make.sh<br>./make.sh install<br></code></pre></td></tr></table></figure>
+<h5 id="安装-libserverframe在两个节点都执行">安装
+libserverframe(在两个节点都执行)</h5>
+<p>FastDFS <strong>新版代码依赖了新组件：libserverframe（SF
+框架）</strong>,如果 <strong>没有安装
+libserverframe</strong>，导致编译失败。</p>
+<p>FastDFS 作者在 2024 起，将部分代码抽到了
+<strong>serverframe（SF）库</strong> 中，必须先安装
+<strong>libserverframe</strong> 才能继续安装 FastDFS。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/happyfish100/libserverframe.git<br>或者 unzip libserverframe-1.2.10.zip <span class="hljs-comment"># 根据下载的压缩包类型 解压缩文件</span><br><span class="hljs-built_in">cd</span> libserverframe<br>./make.sh<br>./make.sh install<br></code></pre></td></tr></table></figure>
+<h5 id="安装fastdfs在两个节点都执行">安装FastDFS(在两个节点都执行)</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/happyfish100/fastdfs.git<br>或者 unzip fastdfs-6.15.1.zip <span class="hljs-comment"># 根据下载的压缩包类型 解压缩文件</span><br><span class="hljs-built_in">cd</span> fastdfs<br>./make.sh<br>./make.sh install<br></code></pre></td></tr></table></figure>
+<p>安装完成后，默认配置在 <code>/etc/fdfs/</code></p>
+<h5 id="配置-tracker两个节点都执行">配置 Tracker（两个节点都执行）</h5>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs makefile">vim /etc/fdfs/tracker.conf<br>修改关键配置：<br>base_path=/data/fastdfs/tracker<br><br><span class="hljs-comment"># 日志与数据目录</span><br>run_by_group=<br>run_by_user=<br><br><span class="hljs-comment"># 不修改端口</span><br>port=22122<br></code></pre></td></tr></table></figure>
+<p>启动tracker</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">service fdfs_trackerd <span class="hljs-built_in">start</span><br>chkconfig fdfs_trackerd <span class="hljs-keyword">on</span><br></code></pre></td></tr></table></figure>
+<p>验证</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">netstat -lntp <span class="hljs-string">| grep 22122</span><br></code></pre></td></tr></table></figure>
+<p>Tracker 正常后再执行下一步。</p>
+<h4 id="配置-storage两个节点都执行">配置 Storage（两个节点都执行）</h4>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs routeros">vim /etc/fdfs/storage.conf<br>关键配置：<br><span class="hljs-attribute">group_name</span>=group1<br><span class="hljs-attribute">base_path</span>=/data/fastdfs/storage<br><span class="hljs-attribute">store_path0</span>=/data/fastdfs/storage<br><br><span class="hljs-comment"># 让两个 storage 同属一个 group，需要同时写两个 tracker</span><br><span class="hljs-attribute">tracker_server</span>=192.168.243.222:22122<br><span class="hljs-attribute">tracker_server</span>=192.168.243.223:22122<br><br><span class="hljs-comment"># storage 默认端口</span><br><span class="hljs-attribute">port</span>=23000<br><br><span class="hljs-comment"># 同步线程，默认即可</span><br></code></pre></td></tr></table></figure>
+<p>启动 Storage：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">service fdfs_storaged <span class="hljs-built_in">start</span><br>chkconfig fdfs_storaged <span class="hljs-keyword">on</span><br></code></pre></td></tr></table></figure>
+<p>验证</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">netstat -lntp <span class="hljs-string">| grep 23000</span><br></code></pre></td></tr></table></figure>
+<h4 id="检查两个-storage-是否都注册成功">检查两个 storage
+是否都注册成功</h4>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/fdfs_monitor /</span>etc<span class="hljs-regexp">/fdfs/</span>client.conf<br></code></pre></td></tr></table></figure>
+<p>如果输出看到 两个 server
+信息，就是正常的。如果只看到一个节点，检查防火墙和 tracker_server
+配置是否一致。</p>
+<p><img src="输出1.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="输出2.png" srcset="/img/loading.gif" lazyload /></p>
+<h5 id="配置-client任一节点即可">配置 Client（任一节点即可）</h5>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">vim /etc/fdfs/client.conf<br><br><span class="hljs-attribute">base_path</span>=/data/fastdfs/client<br><span class="hljs-attribute">tracker_server</span>=192.168.243.222:22122<br><span class="hljs-attribute">tracker_server</span>=192.168.243.223:22122<br></code></pre></td></tr></table></figure>
+<p>快速验证 client.conf 是否正确</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/fdfs_monitor /</span>etc<span class="hljs-regexp">/fdfs/</span>client.conf<br></code></pre></td></tr></table></figure>
+<h5 id="上传测试文件">上传测试文件</h5>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">echo <span class="hljs-string">&quot;hello fastdfs&quot;</span> &gt; test.txt<br><br><span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/fdfs_upload_file /</span>etc<span class="hljs-regexp">/fdfs/</span>client.conf test.txt<br></code></pre></td></tr></table></figure>
+<p>成功结果示例：</p>
+<p>group1/M00/00/00/wKjz3mkYIG2ARfabAAAADg4Qul0756.txt</p>
+<h4 id="使用">使用</h4>
+<h5 id="fastdfs-nginx-的完整访问链路配置">FastDFS + Nginx
+的完整访问链路配置</h5>
+<p>安装 依赖</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nsis">yum install -y gcc pcre pcre-devel <span class="hljs-literal">zlib</span> <span class="hljs-literal">zlib</span>-devel openssl-devel<br></code></pre></td></tr></table></figure>
+<p>下载fastdfs-nginx-module</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs verilog">git clone https:<span class="hljs-comment">//github.com/happyfish100/fastdfs-nginx-module.git</span><br>或者 unzip fastdfs-nginx-<span class="hljs-keyword">module</span><span class="hljs-variable">.1</span><span class="hljs-variable">.26</span><span class="hljs-variable">.zip</span>  # 根据下载的压缩包类型 解压缩文件<br>将解压目录fastdfs-nginx-<span class="hljs-keyword">module</span> 复制到 /usr/<span class="hljs-keyword">local</span>/src<br>修改<span class="hljs-keyword">config</span><br>vim /usr/<span class="hljs-keyword">local</span>/src/fastdfs-nginx-<span class="hljs-keyword">module</span>/src/<span class="hljs-keyword">config</span><br>把<br>/usr/<span class="hljs-keyword">local</span>/<span class="hljs-keyword">include</span><br>改成<br>/usr/<span class="hljs-keyword">include</span><br></code></pre></td></tr></table></figure>
+<p>编译 nginx</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget http:<span class="hljs-regexp">//</span>nginx.org<span class="hljs-regexp">/download/</span>nginx-<span class="hljs-number">1.24</span>.<span class="hljs-number">0</span>.tar.gz<br>tar -zxvf nginx-<span class="hljs-number">1.24</span>.<span class="hljs-number">0</span>.tar.gz<br>cd nginx-<span class="hljs-number">1.24</span>.<span class="hljs-number">0</span><br><br>.<span class="hljs-regexp">/configure --prefix=/u</span>sr<span class="hljs-regexp">/local/</span>nginx \<br>  --add-module=<span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/src/</span>fastdfs-nginx-module/src<br><br>make &amp;&amp; make install<br></code></pre></td></tr></table></figure>
+<p>复制模块配置文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cp <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/src/</span>fastdfs-nginx-module<span class="hljs-regexp">/src/m</span>od_fastdfs.conf <span class="hljs-regexp">/etc/</span>fdfs/<br></code></pre></td></tr></table></figure>
+<p>修改 /etc/fdfs/mod_fastdfs.conf（关键）</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">connect_timeout</span>=<span class="hljs-number">10</span><br><span class="hljs-attr">tracker_server</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">243.222</span>:<span class="hljs-number">22122</span><br><span class="hljs-attr">tracker_server</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">243.223</span>:<span class="hljs-number">22122</span><br><br><span class="hljs-attr">url_have_group_name</span> = <span class="hljs-literal">true</span><br><br><span class="hljs-attr">store_path0</span>=/data/fastdfs/storage<br><span class="hljs-attr">group_count</span> = <span class="hljs-number">1</span><br><br><span class="hljs-section">[group1]</span><br><span class="hljs-attr">group_name</span>=group1<br><span class="hljs-attr">storage_server_port</span>=<span class="hljs-number">23000</span><br><span class="hljs-attr">store_path_count</span>=<span class="hljs-number">1</span><br><span class="hljs-attr">store_path0</span>=/data/fastdfs/storage<br></code></pre></td></tr></table></figure>
+<p>修改 Nginx.conf（用于访问 FastDFS 文件）</p>
+<p>编辑 <code>/usr/local/nginx/conf/nginx.conf</code> 加入</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">server</span> &#123;<br>    <span class="hljs-keyword">listen</span>       <span class="hljs-number">80</span>;<br>    server_name  localhost;<br><br>    <span class="hljs-keyword">location</span> ~/<span class="hljs-keyword">group</span>([<span class="hljs-number">0</span><span class="hljs-number">-9</span>])/M00 &#123;<br>        ngx_fastdfs_module;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>启动nginx</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/nginx/</span>sbin/nginx<br></code></pre></td></tr></table></figure>
+<p>测试</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nginx</span>安装在哪个服务器是就用哪个IP<br><span class="hljs-attribute">curl</span> http://<span class="hljs-number">192.168.243.222</span>/group1/M00/<span class="hljs-number">00</span>/<span class="hljs-number">00</span>/wKjz3mkYIG2ARfabAAAADg4Qul0756.txt <br></code></pre></td></tr></table></figure>
+<h5 id="spring-boot-3.x-fastdfs-配置">Spring Boot 3.x FastDFS 配置</h5>
+<p>Maven 依赖(tobato 版本虽然使用人数多，但
+<strong>停止维护</strong>)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.csource<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>fastdfs-client-java<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.31-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>application.yml</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">fdfs</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">so-timeout</span><span class="hljs-punctuation">:</span> <span class="hljs-string">1500</span><br>  <span class="hljs-attribute">connect-timeout</span><span class="hljs-punctuation">:</span> <span class="hljs-string">600</span><br>  <span class="hljs-attribute">tracker-list</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">192.168.243.222:22122</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">192.168.243.223:22122</span><br><br><span class="hljs-attribute">file</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">base-url</span><span class="hljs-punctuation">:</span> <span class="hljs-string">http://192.168.243.222  # 最终访问 URL 前缀</span><br><br><span class="hljs-attribute">spring</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">servlet</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">multipart</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">max-file-size</span><span class="hljs-punctuation">:</span> <span class="hljs-string">100MB</span><br>      <span class="hljs-attribute">max-request-size</span><span class="hljs-punctuation">:</span> <span class="hljs-string">100MB</span><br></code></pre></td></tr></table></figure>
+<p>启用fastDFS配置</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Configuration</span><br><span class="hljs-variable">@EnableFastdfs</span><br>public class FastDfsConfig &#123; &#125;<br></code></pre></td></tr></table></figure>
+<p>文件工具类（上传 / 删除 / 下载 / 流转发）</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-title class_"><span class="hljs-keyword">class</span> <span class="hljs-title">FastDFSUtil</span> </span>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> FastFileStorageClient storageClient;<br><br>    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;$&#123;file.base-url&#125;&quot;</span>)<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> baseUrl;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 上传文件</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">String</span> upload(MultipartFile file) throws IOException &#123;<br>        <span class="hljs-keyword">String</span> ext = FilenameUtils.getExtension(file.getOriginalFilename());<br>        StorePath path = storageClient.uploadFile(<br>                file.getInputStream(),<br>                file.getSize(),<br>                ext,<br>                <span class="hljs-literal">null</span><br>        );<br>        <span class="hljs-keyword">return</span> baseUrl + <span class="hljs-string">&quot;/&quot;</span> + path.getFullPath();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 多文件上传</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> List&lt;<span class="hljs-keyword">String</span>&gt; uploadBatch(List&lt;MultipartFile&gt; files) throws IOException &#123;<br>        List&lt;<span class="hljs-keyword">String</span>&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-type">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (MultipartFile f : <span class="hljs-type">files</span>) &#123;<br>            list.add(upload(f));<br>        &#125;<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 流转发上传（文件不落地）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">String</span> uploadBytes(byte[] bytes, <span class="hljs-keyword">String</span> ext) &#123;<br>        StorePath path = storageClient.uploadFile(<br>                <span class="hljs-keyword">new</span> <span class="hljs-type">ByteArrayInputStream</span>(bytes),<br>                bytes.length,<br>                ext,<br>                <span class="hljs-literal">null</span><br>        );<br>        <span class="hljs-keyword">return</span> baseUrl + <span class="hljs-string">&quot;/&quot;</span> + path.getFullPath();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 删除文件</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> void delete(<span class="hljs-keyword">String</span> fullUrl) &#123;<br>        <span class="hljs-keyword">if</span> (fullUrl == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;<br>        <span class="hljs-keyword">String</span> filePath = fullUrl.substring(baseUrl.length() + <span class="hljs-number">1</span>);<br>        storageClient.deleteFile(filePath);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 下载文件</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> byte[] download(<span class="hljs-keyword">String</span> fullUrl) &#123;<br>        <span class="hljs-keyword">String</span> filePath = fullUrl.substring(baseUrl.length() + <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">String</span> group = filePath.substring(<span class="hljs-number">0</span>, filePath.indexOf(<span class="hljs-string">&quot;/&quot;</span>));<br>        <span class="hljs-keyword">String</span> path = filePath.substring(filePath.indexOf(<span class="hljs-string">&quot;/&quot;</span>) + <span class="hljs-number">1</span>);<br><br>        <span class="hljs-keyword">return</span> storageClient.downloadFile(group, path, <span class="hljs-keyword">new</span> <span class="hljs-type">DownloadByteArray</span>());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Controller：上传 / 多传 / 下载 / 删除 / 流转发</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(<span class="hljs-string">&quot;/file&quot;</span>)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileController</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> FastDFSUtil fastDFSUtil;<br><br>    <span class="hljs-meta">@PostMapping(<span class="hljs-string">&quot;/upload&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> String upload(<span class="hljs-meta">@RequestParam(<span class="hljs-string">&quot;file&quot;</span>)</span> MultipartFile file) throws Exception &#123;<br>        <span class="hljs-keyword">return</span> fastDFSUtil.upload(file);<br>    &#125;<br><br>    <span class="hljs-meta">@PostMapping(<span class="hljs-string">&quot;/uploadBatch&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> List&lt;String&gt; uploadBatch(<span class="hljs-meta">@RequestParam(<span class="hljs-string">&quot;files&quot;</span>)</span> List&lt;MultipartFile&gt; files) throws Exception &#123;<br>        <span class="hljs-keyword">return</span> fastDFSUtil.uploadBatch(files);<br>    &#125;<br><br>    <span class="hljs-meta">@PostMapping(<span class="hljs-string">&quot;/forwardUpload&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> String forwardUpload(<span class="hljs-meta">@RequestParam(<span class="hljs-string">&quot;url&quot;</span>)</span> String url) throws Exception &#123;<br>        byte[] bytes = new RestTemplate().getForObject(url, byte[].<span class="hljs-keyword">class</span>);<br>        <span class="hljs-keyword">return</span> fastDFSUtil.uploadBytes(bytes, <span class="hljs-string">&quot;jpg&quot;</span>);  <span class="hljs-comment">// 根据源 URL 设置 ext</span><br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(<span class="hljs-string">&quot;/download&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> ResponseEntity&lt;byte[]&gt; download(<span class="hljs-meta">@RequestParam</span> String url) &#123;<br>        byte[] <span class="hljs-keyword">data</span> = fastDFSUtil.download(url);<br>        <span class="hljs-keyword">return</span> ResponseEntity.ok()<br>                .header(HttpHeaders.CONTENT_TYPE, <span class="hljs-string">&quot;application/octet-stream&quot;</span>)<br>                .body(<span class="hljs-keyword">data</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@DeleteMapping(<span class="hljs-string">&quot;/delete&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> String delete(<span class="hljs-meta">@RequestParam</span> String url) &#123;<br>        fastDFSUtil.delete(url);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;OK&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%99%E7%A8%8B/%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/" class="category-chain-item">文件存储</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/11/08/%E9%BA%92%E9%BA%9F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85docker/" title="麒麟操作系统安装docker">
+                        <span class="hidden-mobile">麒麟操作系统安装docker</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
